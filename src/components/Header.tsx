@@ -200,9 +200,9 @@ export default function Header() {
     {/* Secondary Fixed Bottom Header (Mobile Only) */}
     <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] z-50 px-1 pb-safe">
       <div className="flex justify-between items-center h-28">
-        <Link to="/shop-by-category" state={{ activeTab: 'categories' }} className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
-          <LayoutGrid className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
-          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Categories</span>
+        <Link to="/packages" className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
+          <Package className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
+          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Packages</span>
         </Link>
         <Link to="/shop-by-category" state={{ activeTab: 'brands' }} className="flex flex-col items-center justify-center flex-1 text-black hover:text-pink-600 transition">
           <Award className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
@@ -220,9 +220,9 @@ export default function Header() {
           <span className="text-[11px] sm:text-xs font-black uppercase text-center leading-none text-pink-600">Book</span>
         </Link>
 
-        <Link to="/packages" className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
-          <Package className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
-          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Packages</span>
+        <Link to="/shop-by-category" state={{ activeTab: 'categories' }} className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
+          <LayoutGrid className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
+          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Categories</span>
         </Link>
         <Link to="/bmi-calculator" className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
           <Activity className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
