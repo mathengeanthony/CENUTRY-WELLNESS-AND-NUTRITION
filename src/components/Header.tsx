@@ -198,34 +198,39 @@ export default function Header() {
     </header>
 
     {/* Secondary Fixed Bottom Header (Mobile Only) */}
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50 px-1 pb-safe">
-      <div className="flex justify-between items-end pb-2 pt-1 h-14">
-        <Link to="/shop-by-category" state={{ activeTab: 'categories' }} className="flex flex-col items-center justify-center flex-1 text-gray-500 hover:text-green-700 transition">
-          <LayoutGrid className="w-4 h-4 mb-1" />
-          <span className="text-[8px] font-bold uppercase text-center leading-none">Categories</span>
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] z-50 px-1 pb-safe">
+      <div className="flex justify-between items-center h-28">
+        <Link to="/shop-by-category" state={{ activeTab: 'categories' }} className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
+          <LayoutGrid className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
+          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Categories</span>
         </Link>
-        <Link to="/shop-by-category" state={{ activeTab: 'brands' }} className="flex flex-col items-center justify-center flex-1 text-gray-500 hover:text-pink-600 transition">
-          <Award className="w-4 h-4 mb-1" />
-          <span className="text-[8px] font-bold uppercase text-center leading-none">Brands</span>
+        <Link to="/shop-by-category" state={{ activeTab: 'brands' }} className="flex flex-col items-center justify-center flex-1 text-black hover:text-pink-600 transition">
+          <Award className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
+          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Brands</span>
         </Link>
+        
         {/* Prominent floating center action */}
-        <Link to="/book-appointment" className="flex flex-col items-center justify-center w-14 text-white transition relative -top-3">
-          <div className="bg-pink-500 w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 border-white mb-1">
-             <Calendar className="w-4 h-4" />
+        <Link to="/book-appointment" className="flex flex-col items-center justify-center w-16 sm:w-20 transition relative -top-6">
+          <div className="relative mb-2">
+            <div className="absolute inset-0 bg-pink-500 rounded-full animate-ping opacity-75"></div>
+            <div className="relative bg-pink-500 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-lg border-[3px] border-white">
+               <Calendar className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+            </div>
           </div>
-          <span className="text-[8px] font-bold uppercase text-center leading-none text-pink-600">Book</span>
+          <span className="text-[11px] sm:text-xs font-black uppercase text-center leading-none text-pink-600">Book</span>
         </Link>
-        <Link to="/packages" className="flex flex-col items-center justify-center flex-1 text-gray-500 hover:text-green-700 transition">
-          <Package className="w-4 h-4 mb-1" />
-          <span className="text-[8px] font-bold uppercase text-center leading-none">Packages</span>
+
+        <Link to="/packages" className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
+          <Package className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
+          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Packages</span>
         </Link>
-        <Link to="/bmi-calculator" className="flex flex-col items-center justify-center flex-1 text-gray-500 hover:text-green-700 transition">
-          <Activity className="w-4 h-4 mb-1" />
-          <span className="text-[8px] font-bold uppercase text-center leading-none">BMI Calc</span>
+        <Link to="/bmi-calculator" className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
+          <Activity className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
+          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">BMI</span>
         </Link>
-        <button onClick={() => setIsMenuOpen(true)} className="flex flex-col items-center justify-center flex-1 text-gray-500 hover:text-green-700 transition">
-          <Menu className="w-4 h-4 mb-1" />
-          <span className="text-[8px] font-bold uppercase text-center leading-none">Menu</span>
+        <button onClick={() => setIsMenuOpen(true)} className="flex flex-col items-center justify-center flex-1 text-black hover:text-green-700 transition">
+          <Menu className="w-5 h-5 sm:w-6 sm:h-6 mb-2" />
+          <span className="text-[10px] sm:text-xs font-black uppercase text-center leading-none">Menu</span>
         </button>
       </div>
     </div>

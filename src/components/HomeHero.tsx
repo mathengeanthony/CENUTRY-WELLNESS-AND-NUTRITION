@@ -147,13 +147,13 @@ export default function HomeHero() {
       {/* Buttons Below Slider */}
       <div className="bg-white border-b border-gray-200 relative z-20 shadow-sm">
         <div className="container flex mx-auto max-w-[1400px] divide-x divide-gray-100">
-           <Link to="/shop-by-category" state={{ activeTab: 'brands' }} className="flex-1 py-2.5 md:py-3.5 px-2 flex flex-row items-center justify-center hover:bg-pink-50 transition text-gray-700 hover:text-pink-600 group gap-1.5 md:gap-2.5">
-              <Award className="w-4 h-4 md:w-5 md:h-5 text-gray-300 group-hover:text-pink-500 transition-colors" />
-              <span className="text-[10px] md:text-[11px] lg:text-xs font-bold uppercase tracking-widest mt-0.5">Shop By Brand</span>
+           <Link to="/shop-by-category" state={{ activeTab: 'brands' }} className="flex-1 py-2.5 md:py-3.5 px-2 flex flex-row items-center justify-center hover:bg-pink-50 transition text-black hover:text-pink-600 group gap-1.5 md:gap-2.5">
+              <Award className="w-4 h-4 md:w-5 md:h-5 text-black group-hover:text-pink-500 transition-colors" />
+              <span className="text-[10px] md:text-[11px] lg:text-xs font-black uppercase tracking-widest mt-0.5">Shop By Brand</span>
            </Link>
-           <Link to="/shop-by-category" state={{ activeTab: 'categories' }} className="flex-1 py-2.5 md:py-3.5 px-2 flex flex-row items-center justify-center hover:bg-green-50 transition text-gray-700 hover:text-green-700 group gap-1.5 md:gap-2.5">
-              <LayoutGrid className="w-4 h-4 md:w-5 md:h-5 text-gray-300 group-hover:text-green-600 transition-colors" />
-              <span className="text-[10px] md:text-[11px] lg:text-xs font-bold uppercase tracking-widest mt-0.5">Shop By Category</span>
+           <Link to="/shop-by-category" state={{ activeTab: 'categories' }} className="flex-1 py-2.5 md:py-3.5 px-2 flex flex-row items-center justify-center hover:bg-green-50 transition text-black hover:text-green-700 group gap-1.5 md:gap-2.5">
+              <LayoutGrid className="w-4 h-4 md:w-5 md:h-5 text-black group-hover:text-green-600 transition-colors" />
+              <span className="text-[10px] md:text-[11px] lg:text-xs font-black uppercase tracking-widest mt-0.5">Shop By Category</span>
            </Link>
         </div>
       </div>
