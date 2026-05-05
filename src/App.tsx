@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -9,12 +9,24 @@ import Packages from './pages/Packages';
 import BookAppointment from './pages/BookAppointment';
 import Offers from './pages/Offers';
 import BMICalculator from './pages/BMICalculator';
+import Articles from './pages/Articles';
 
 import Checkout from './pages/Checkout';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 overflow-x-hidden flex flex-col">
+      <ScrollToTop />
       <Header />
       <div className="flex-1">
         <Routes>
@@ -25,6 +37,7 @@ export default function App() {
           <Route path="/book-appointment" element={<BookAppointment />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/bmi-calculator" element={<BMICalculator />} />
+          <Route path="/articles" element={<Articles />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </div>

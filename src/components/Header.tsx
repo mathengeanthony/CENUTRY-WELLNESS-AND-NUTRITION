@@ -157,7 +157,7 @@ export default function Header() {
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Top Brands</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Proteins</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Vitamins & Health</li>
-            <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Healthy Foods</li>
+            <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition"><Link to="/articles">Articles</Link></li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Keto Diet</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Equipments</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 text-pink-300 cursor-pointer transition flex items-center ml-auto">
@@ -181,7 +181,7 @@ export default function Header() {
               <Link to="/shop-by-category" state={{ activeTab: 'categories' }} onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 border-b">Shop By Category</Link>
               <Link to="/shop-by-category" state={{ activeTab: 'brands' }} onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 border-b">Top Brands</Link>
               <Link to="/book-appointment" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 border-b">Book Clinic Appointment</Link>
-              <a href="#" className="block px-4 py-3 border-b">Articles & Advice</a>
+              <Link to="/articles" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 border-b">Articles & Advice</Link>
               <Link to="/packages" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 border-b">Health Packages</Link>
               <Link to="/bmi-calculator" onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 border-b">BMI Calculator</Link>
             </div>
