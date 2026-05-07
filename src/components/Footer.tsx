@@ -16,7 +16,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed font-medium">
-              Kenya's leading sports nutrition and wellness center. We provide top global brands and professional dietitian consultation to help you achieve your goals.
+              Century Nutrition & Wellness Shop is a premier health food store dedicated to your well-being. Located in Rongai, we deal in high-quality food supplements from trusted global brands, edible seeds and nuts, enriched flours, and natural spices and herbs. We provide nutritional solutions for all ages, from infants to seniors, ensuring our community has access to the best in wellness and vitality.
             </p>
             <div className="flex space-x-3">
               <a href="#" className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-700 hover:bg-pink-500 hover:text-white transition shadow-sm">
@@ -65,11 +65,11 @@ export default function Footer() {
             <ul className="space-y-4 text-sm font-semibold text-gray-600">
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-green-600 mr-3 flex-shrink-0 mt-0.5" />
-                <span>Kunjam Arcade, Magadi Road<br/>Ongata Rongai, Kenya</span>
+                <span>Kunjam Arcade, Ground Floor, Suite 7<br/>Along Magadi Road (Next to Mariakani Hospital)<br/>Rongai</span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
-                <span>+254 736 921630</span>
+                <span>0715 457 885 | 0736 921 630</span>
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />

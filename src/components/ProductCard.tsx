@@ -7,8 +7,12 @@ export default function ProductCard({ product }: { product: Product; key?: React
   const discount = product.oldPrice ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-100 p-3 flex flex-col h-full relative transition-all duration-300 hover:shadow-xl hover:border-pink-200 group">
-      {/* Badges */}
+    <div className="bg-white rounded-lg border border-gray-100 flex flex-col h-full relative transition-all duration-300 hover:shadow-xl hover:border-pink-200 group">
+      <Link to={`/product/${product.id}`} className="absolute inset-0 z-[1]"></Link>
+      
+      <div className="p-3 flex flex-col flex-1 relative z-[2] pointer-events-none">
+        
+        {/* Badges */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 flex-wrap max-w-[60%]">
         {product.discountText ? (
            <span className="bg-pink-500 text-white text-[9px] sm:text-[10px] font-bold px-2 py-1 flex-shrink-0 uppercase shadow-sm leading-none">
@@ -40,7 +44,7 @@ export default function ProductCard({ product }: { product: Product; key?: React
           className="object-contain h-[90%] w-[90%] group-hover:scale-110 transition-transform duration-500"
         />
         {/* Quick Add overlay */}
-        <div className="absolute bottom-2 inset-x-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300 z-20 hidden lg:block">
+        <div className="absolute bottom-2 inset-x-2 opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300 z-20 hidden lg:block pointer-events-auto">
            <Link to="/checkout" className="w-full bg-white/95 backdrop-blur text-green-700 hover:bg-green-700 hover:text-white border border-green-700 py-2 rounded font-bold text-[11px] xl:text-xs transition shadow-lg flex justify-center items-center uppercase tracking-wide">
              <ShoppingCart className="w-4 h-4 mr-1.5" /> Add to Cart
            </Link>
@@ -73,10 +77,11 @@ export default function ProductCard({ product }: { product: Product; key?: React
           </div>
            
            {/* Cart icon mobile */}
-           <Link to="/checkout" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition lg:hidden shadow-sm border border-pink-100 flex-shrink-0">
+           <Link to="/checkout" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-pink-50 text-pink-500 flex items-center justify-center hover:bg-pink-500 hover:text-white transition lg:hidden shadow-sm border border-pink-100 flex-shrink-0 pointer-events-auto">
              <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
            </Link>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -12,26 +12,31 @@ export interface Product {
   discountText?: string;
   isKeto?: boolean;
   isVegan?: boolean;
+  categoryId?: string;
+  subcategory?: string;
 }
 
 export const CATEGORIES = [
-  { id: '1', name: 'Proteins', image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=200&q=80' },
-  { id: '2', name: 'Vitamins & Health', image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=200&q=80' },
-  { id: '3', name: 'Weight Management', image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=200&q=80' },
-  { id: '4', name: 'Sports Nutrition', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=200&q=80' },
-  { id: '5', name: 'Healthy Foods', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=200&q=80' },
-  { id: '6', name: 'Keto Diet', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=200&q=80' },
-  { id: '7', name: 'Sports Accessories', image: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=200&q=80' },
-  { id: '8', name: 'Personal Care', image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=200&q=80' },
+  { id: '1', name: 'Digestive Health', image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=200&q=80' },
+  { id: '2', name: 'Bone & Joint Support', image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=200&q=80' },
+  { id: '3', name: 'Immune Support', image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=200&q=80' },
+  { id: '4', name: 'Family Care', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=200&q=80' },
+  { id: '5', name: 'Specialized Health', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=200&q=80' },
+  { id: '6', name: 'Fitness & Weight', image: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=200&q=80' },
+  { id: '7', name: 'Pantry & Nutrition', image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=200&q=80' },
 ];
 
 export const BRANDS = [
-  { name: 'Laperva', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
-  { name: 'Optimum Nutrition', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
-  { name: 'MuscleTech', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
-  { name: 'Cellucor', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
-  { name: 'Kevin Levrone', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
-  { name: 'BSN', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Natures Aid', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Quest', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Webber Naturals', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Now Foods', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Higher Nature', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Hemani', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: "Nature's Truth", logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Hamdard', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Natural Factors', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
+  { name: 'Power Health', logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=150&q=80' },
 ];
 
 export const ARTICLES = [
@@ -59,95 +64,44 @@ export const ARTICLES = [
 ];
 
 export const MOCK_PRODUCTS: Product[] = [
-  {
-    id: 'p1',
-    name: '100% Gold Standard Whey Protein 5lbs',
-    brand: 'Optimum Nutrition',
-    price: 10400,
-    oldPrice: 13000,
-    image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80',
-    rating: 4.8,
-    reviews: 1245,
-    isNew: true,
-    points: 80,
-    discountText: '20% OFF'
-  },
-  {
-    id: 'p2',
-    name: 'Platinum Multivitamin - 90 Tablets',
-    brand: 'MuscleTech',
-    price: 3185,
-    image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80',
-    rating: 4.5,
-    reviews: 840,
-    points: 25,
-  },
-  {
-    id: 'p3',
-    name: 'C4 Original Pre-Workout 60 Servings',
-    brand: 'Cellucor',
-    price: 4550,
-    oldPrice: 5850,
-    image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=400&q=80',
-    rating: 4.7,
-    reviews: 3200,
-    points: 35,
-    discountText: 'Buy 1 Get 1 Free'
-  },
-  {
-    id: 'p4',
-    name: 'AminoX BCAA Recovery',
-    brand: 'BSN',
-    price: 3900,
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80',
-    rating: 4.6,
-    reviews: 512,
-    points: 30,
-  },
-  {
-    id: 'p5',
-    name: 'ISO100 Hydrolyzed Protein Isolate',
-    brand: 'Dymatize',
-    price: 11050,
-    oldPrice: 14300,
-    image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80',
-    rating: 4.9,
-    reviews: 890,
-    points: 85,
-    discountText: '15% OFF'
-  },
-  {
-    id: 'p6',
-    name: 'Century Wellness Omega-3 Fish Oil',
-    brand: 'Century Wellness',
-    price: 2600,
-    image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80',
-    rating: 4.4,
-    reviews: 120,
-    isNew: true,
-    points: 20
-  },
-  {
-    id: 'p7',
-    name: 'Laperva Triple Mass Gainer 15lbs',
-    brand: 'Laperva',
-    price: 15600,
-    oldPrice: 19500,
-    image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80',
-    rating: 4.8,
-    reviews: 450,
-    points: 120,
-    discountText: 'Save KSh 3,900'
-  },
-  {
-    id: 'p8',
-    name: 'Laperva Keto Bar Chocolate 60g',
-    brand: 'Laperva',
-    price: 450,
-    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80',
-    rating: 4.2,
-    reviews: 67,
-    points: 3,
-    isKeto: true
-  }
+  { id: '1', name: 'Natures Aid Mini Drops Multivitamins - 50ml', brand: 'Natures Aid', price: 1200, oldPrice: 1500, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 145, categoryId: '4', subcategory: 'Infants & Babies' },
+  { id: '2', name: 'Natures Aid Mini Drops DHA - 50ml', brand: 'Natures Aid', price: 1400, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 90, categoryId: '4', subcategory: 'Infants & Babies' },
+  { id: '3', name: 'Natures Aid Superstars Immune Support - 60s', brand: 'Natures Aid', price: 1800, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.9, reviews: 110, categoryId: '3', subcategory: 'Kids Immune Support' },
+  { id: '4', name: 'Quest Omega 3 Fish Oil - 90 capsules', brand: 'Quest', price: 3185, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.5, reviews: 840, categoryId: '5', subcategory: 'Heart Health' },
+  { id: '5', name: 'Webber Natural Biotin 5000 mcg 60 caps', brand: 'Webber Naturals', price: 2550, oldPrice: 2850, image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 320, categoryId: '5', subcategory: 'Skin & Beauty' },
+  { id: '6', name: 'Now Collagen Peptides Powder - 227g', brand: 'Now Foods', price: 3900, image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 512, categoryId: '2', subcategory: 'Collagen' },
+  { id: '7', name: 'Now Ashwagandha 450 mg 90 caps', brand: 'Now Foods', price: 2100, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 230, categoryId: '5', subcategory: 'Vitality' },
+  { id: '8', name: 'Quest Mega B Complex - 30 tabs', brand: 'Quest', price: 1800, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 210, categoryId: '5', subcategory: 'Vitamins' },
+  { id: '9', name: 'Quest OAD Zinc Plus - 30 tabs', brand: 'Quest', price: 1500, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 150, categoryId: '3', subcategory: 'Minerals' },
+  { id: '10', name: 'Higher Nature Collagen Tablets - 90 tabs', brand: 'Higher Nature', price: 3500, image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80', rating: 4.5, reviews: 300, categoryId: '2', subcategory: 'Collagen' },
+  { id: '11', name: 'Now Melatonin 3 mg 60 caps', brand: 'Now Foods', price: 1600, image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 410, categoryId: '5', subcategory: 'Sleep' },
+  { id: '12', name: 'Quest OAD Osteo - 30 tabs', brand: 'Quest', price: 2000, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.5, reviews: 190, categoryId: '2', subcategory: 'Bone Health' },
+  { id: '13', name: 'Hemani Blackseed Oil - 125ml', brand: 'Hemani', price: 2600, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.4, reviews: 120, categoryId: '7', subcategory: 'Oils' },
+  { id: '14', name: 'Higher Nature Msm Glucosamine Joint Complex - 90 tabs', brand: 'Higher Nature', price: 4050, oldPrice: 4800, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.9, reviews: 89, categoryId: '2', subcategory: 'Cartilage Supplements' },
+  { id: '15', name: 'Nature\'s Truth Sleep Melatonin 10 mg 70 tabs', brand: 'Nature\'s Truth', price: 2450, image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80', rating: 4.2, reviews: 67, categoryId: '5', subcategory: 'Sleep' },
+  { id: '16', name: 'Hamdard Safi - 100ml', brand: 'Hamdard', price: 1560, oldPrice: 1950, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 450, categoryId: '1', subcategory: 'Detox' },
+  { id: '17', name: 'Quest Acidophilus Plus - 90 caps', brand: 'Quest', price: 2800, image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 310, categoryId: '1', subcategory: 'Probiotics' },
+  { id: '18', name: 'Quest Enzyme Digest - 135 tabs', brand: 'Quest', price: 2400, image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 290, categoryId: '1', subcategory: 'Enzymes' },
+  { id: '19', name: 'Natural Factors Chromium & Vanadium 125 mcg 90 caps', brand: 'Natural Factors', price: 3200, image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 35, categoryId: '6', subcategory: 'Diet & Weight Loss' },
+  { id: '20', name: 'Quest OAD Iron Plus - 30 tabs', brand: 'Quest', price: 1600, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 210, categoryId: '5', subcategory: 'Minerals' },
+  { id: '21', name: 'Quest OAD Immune C - 30 tabs', brand: 'Quest', price: 1600, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 155, categoryId: '3', subcategory: 'Vitamin C' },
+  { id: '22', name: 'Quest Vitamin C & Zinc & Rosehips - 20 tabs', brand: 'Quest', price: 1200, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 400, categoryId: '3', subcategory: 'Vitamin C' },
+  { id: '23', name: 'Quest Evening Primrose 1000 mg 30 caps', brand: 'Quest', price: 2100, image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 180, categoryId: '5', subcategory: 'Women Health' },
+  { id: '24', name: 'Now Horny Goat Weed Extract 750 mg 90 tabs', brand: 'Now Foods', price: 3400, image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80', rating: 4.5, reviews: 310, categoryId: '5', subcategory: 'Sexual Health' },
+  { id: '25', name: 'Now Maca 500 mg 100 caps', brand: 'Now Foods', price: 2700, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 420, categoryId: '5', subcategory: 'Sexual Health' },
+  { id: '26', name: 'Now Stinging Nettle Root Extract 250 mg 90 caps', brand: 'Now Foods', price: 2400, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 150, categoryId: '5', subcategory: 'Men Health' },
+  { id: '27', name: 'PH Chromium Picolinate 200 ug 90 tabs', brand: 'Power Health', price: 2100, image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=400&q=80', rating: 4.5, reviews: 120, categoryId: '6', subcategory: 'Diet & Weight Loss' },
+  { id: '28', name: 'Webber Naturals Magnesium Bisglycinate 200 mg 60 caps', brand: 'Webber Naturals', price: 2800, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 500, categoryId: '2', subcategory: 'Minerals' },
+  { id: '29', name: 'Natural Factors Vitamin E 400 IU 90 softgels', brand: 'Natural Factors', price: 2900, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 240, categoryId: '3', subcategory: 'Antioxidants' },
+  { id: '30', name: 'Natures Aid Co-Enzymes Q10 - 30 softgels', brand: 'Natures Aid', price: 2500, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 190, categoryId: '5', subcategory: 'Heart Health' },
+  { id: '31', name: 'Power Health Odourless Garlic - 90 caps', brand: 'Power Health', price: 1500, image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=400&q=80', rating: 4.5, reviews: 80, categoryId: '3', subcategory: 'Immune Boosters' },
+  { id: '32', name: 'Natures Aid Flaxseed Oil 1000 mg 90 softgels', brand: 'Natures Aid', price: 2200, image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 310, categoryId: '7', subcategory: 'Oils' },
+  { id: '33', name: 'Now Vitamin D3 1000 IU 180 softgels', brand: 'Now Foods', price: 1900, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80', rating: 4.9, reviews: 850, categoryId: '3', subcategory: 'Vitamins' },
+  { id: '34', name: 'Now Omega 3 1000 mg 30 softgels', brand: 'Now Foods', price: 1700, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 620, categoryId: '5', subcategory: 'Heart Health' },
+  { id: '35', name: 'Now Omega 3 6 9 - 100 softgels', brand: 'Now Foods', price: 3100, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 480, categoryId: '5', subcategory: 'Heart Health' },
+  { id: '36', name: 'Quest Super Omega 3 6 9 - 90 caps', brand: 'Quest', price: 3400, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 390, categoryId: '5', subcategory: 'Heart Health' },
+  { id: '37', name: 'Natures Aid Calcium, Magnesium & Vit D3 - 90 tabs', brand: 'Natures Aid', price: 2100, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.7, reviews: 450, categoryId: '2', subcategory: 'Calcium' },
+  { id: '38', name: 'Quest Vitamin B12 500 ug 60 tabs', brand: 'Quest', price: 1600, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.6, reviews: 290, categoryId: '5', subcategory: 'Vitamins' },
+  { id: '39', name: 'Natures Aid Vitamin B Complex - 90 tabs', brand: 'Natures Aid', price: 1900, image: 'https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80', rating: 4.8, reviews: 520, categoryId: '5', subcategory: 'Vitamins' }
 ];
+

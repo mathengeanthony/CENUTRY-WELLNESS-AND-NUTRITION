@@ -8,8 +8,11 @@ import Branches from './pages/Branches';
 import Packages from './pages/Packages';
 import BookAppointment from './pages/BookAppointment';
 import Offers from './pages/Offers';
-import BMICalculator from './pages/BMICalculator';
+import AboutUs from './pages/AboutUs';
 import Articles from './pages/Articles';
+import SearchResults from './pages/SearchResults';
+
+import ProductDetails from './pages/ProductDetails';
 
 import Checkout from './pages/Checkout';
 
@@ -32,12 +35,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop-by-category" element={<ShopByCategory />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/branches" element={<Branches />} />
           <Route path="/packages" element={<Packages />} />
           <Route path="/book-appointment" element={<BookAppointment />} />
           <Route path="/offers" element={<Offers />} />
-          <Route path="/bmi-calculator" element={<BMICalculator />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/articles" element={<Articles />} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </div>
