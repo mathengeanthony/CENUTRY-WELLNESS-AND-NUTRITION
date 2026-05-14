@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, User, Heart, Phone, Menu, ChevronDown, MapPin, Smartphone, HelpCircle, Gift, PhoneCall, Sun, Moon, Stethoscope, FileText, LayoutGrid, Award, Calendar, Activity, Package } from 'lucide-react';
+import { useCart } from '../CartContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false); // UI toggle, won't enforce full app dark mode
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const { cartCount, cartTotal } = useCart();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,11 +112,11 @@ export default function Header() {
             <Link to="/checkout" className="relative flex items-center group hover:opacity-80 transition cursor-pointer">
               <div className="relative md:mr-3">
                 <ShoppingCart className="w-7 h-7 lg:w-8 lg:h-8 text-green-700 group-hover:text-pink-500 transition-colors" />
-                <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-[11px] w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center rounded-full font-bold border-2 border-white">3</span>
+                <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-[11px] w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center rounded-full font-bold border-2 border-white">{cartCount}</span>
               </div>
               <div className="hidden md:flex flex-col items-start min-w-[70px]">
                 <span className="text-[11px] text-gray-500 uppercase font-medium">My Cart</span>
-                <span className="text-sm font-extrabold text-pink-500">KSh 18,450</span>
+                <span className="text-sm font-extrabold text-pink-500">KSh {cartTotal.toLocaleString()}</span>
               </div>
             </Link>
           </div>
@@ -173,6 +175,7 @@ export default function Header() {
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Joint Support</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Family Care</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition"><Link to="/articles">Articles</Link></li>
+            <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition"><Link to="/image-preview">Map Images</Link></li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Immune</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 hover:text-pink-300 cursor-pointer transition">Fitness</li>
             <li className="px-3 py-3.5 border-l border-green-600/50 text-pink-300 cursor-pointer transition flex items-center ml-auto">

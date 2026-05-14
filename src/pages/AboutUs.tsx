@@ -6,71 +6,73 @@ export default function AboutUs() {
     <div className="bg-gray-50 min-h-screen pb-20">
       {/* Dark Hero Section (Inspired by Image) */}
       <div 
-        className="bg-green-900 text-white pt-2 pb-6 relative overflow-hidden flex flex-col items-center bg-cover bg-center"
+        className="bg-green-900 text-white relative overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1538108149393-cebb3010b14c?auto=format&fit=crop&w=2000&q=80')" }}
       >
         <div className="absolute inset-0 bg-green-950/90 z-0"></div>
 
-        {/* Top Badges */}
-        <div className="flex flex-col items-center gap-2 z-10 relative mt-2 mb-4">
-            {/* Added Pills */}
-           <div className="flex gap-4 mb-1">
-             <span className="bg-white/10 hover:bg-white/20 transition cursor-pointer px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase text-white border border-green-700">Meet the Doctor</span>
-             <span className="bg-white/10 hover:bg-white/20 transition cursor-pointer px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase text-white border border-green-700">Our Clinic</span>
-           </div>
-
-           <div className="bg-white text-green-900 rounded-full py-1.5 px-3 pr-5 flex items-center shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-             <div className="flex -space-x-2 mr-3">
-               <div className="w-6 h-6 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center overflow-hidden"><img src="https://i.pravatar.cc/100?img=1" alt="user" className="w-full h-full object-cover"/></div>
-               <div className="w-6 h-6 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center overflow-hidden"><img src="https://i.pravatar.cc/100?img=2" alt="user" className="w-full h-full object-cover"/></div>
-               <div className="w-6 h-6 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center overflow-hidden"><img src="https://i.pravatar.cc/100?img=3" alt="user" className="w-full h-full object-cover"/></div>
+        <div className="container mx-auto px-4 pt-12 pb-20 lg:pt-24 lg:pb-32 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+          
+          {/* Left Text Content */}
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left w-full lg:w-[55%] shrink-0">
+             {/* Added Pills */}
+             <div className="flex gap-4 mb-4">
+               <span className="bg-white/10 hover:bg-white/20 transition cursor-pointer px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase text-white border border-green-700">Meet the Doctor</span>
+               <span className="bg-white/10 hover:bg-white/20 transition cursor-pointer px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase text-white border border-green-700">Our Clinic</span>
              </div>
-             <span className="font-bold text-xs sm:text-sm tracking-wide">2500+ SATISFIED PATIENTS</span>
-           </div>
-           
-           <div className="flex items-center gap-2 mt-1">
-             <div className="w-8 h-8 rounded-full border border-green-700 bg-white/5 flex items-center justify-center text-pink-400 hover:bg-pink-500 hover:text-white transition cursor-pointer">
-                <Smile className="w-4 h-4" />
+
+             <div className="bg-white text-green-900 rounded-full py-1.5 px-3 pr-5 flex items-center shadow-[0_0_20px_rgba(255,255,255,0.1)] mb-4">
+               <div className="flex -space-x-2 mr-3">
+                 <div className="w-6 h-6 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center overflow-hidden"><img src="https://i.pravatar.cc/100?img=1" alt="user" className="w-full h-full object-cover"/></div>
+                 <div className="w-6 h-6 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center overflow-hidden"><img src="https://i.pravatar.cc/100?img=2" alt="user" className="w-full h-full object-cover"/></div>
+                 <div className="w-6 h-6 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center overflow-hidden"><img src="https://i.pravatar.cc/100?img=3" alt="user" className="w-full h-full object-cover"/></div>
+               </div>
+               <span className="font-bold text-xs sm:text-sm tracking-wide">2500+ SATISFIED PATIENTS</span>
              </div>
-             <span className="text-green-100 font-bold text-[10px] sm:text-xs tracking-widest pl-1 uppercase">Read client success stories</span>
-           </div>
-        </div>
+             
+             <div className="flex items-center gap-2 mb-8">
+               <div className="w-8 h-8 rounded-full border border-green-700 bg-white/5 flex items-center justify-center text-pink-400 hover:bg-pink-500 hover:text-white transition cursor-pointer">
+                  <Smile className="w-4 h-4" />
+               </div>
+               <span className="text-green-100 font-bold text-[10px] sm:text-xs tracking-widest pl-1 uppercase">Read client success stories</span>
+             </div>
 
-        {/* Big Headline */}
-        <div className="z-10 relative text-center mb-4">
-           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[1.05] text-white my-1">
-              YOUR TRUSTED<br/>
-              <span className="text-pink-400">PARTNER IN HEALTH</span><br/>
-              AND WELLNESS
-           </h1>
-        </div>
+             {/* Big Headline */}
+             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[4.5rem] font-black uppercase tracking-tighter leading-[1.05] text-white">
+                YOUR TRUSTED<br/>
+                <span className="text-pink-400">PARTNER IN HEALTH</span><br/>
+                AND WELLNESS
+             </h1>
+          </div>
 
-        {/* Circular Graphic Elements */}
-        <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center z-10 mb-4 mt-[-2%] sm:mt-[-5%] md:mt-[-8%] pointer-events-none">
-           {/* Faint Outer Ring */}
-           <div className="absolute w-[95%] h-[95%] rounded-full border border-green-800"></div>
-           {/* Inner Ring with glow */}
-           <div className="absolute w-[80%] h-[80%] rounded-full border border-green-600 shadow-[0_0_30px_rgba(34,197,94,0.1)]"></div>
+          {/* Right Circular Graphic Elements */}
+          <div className="relative w-full max-w-[500px] lg:max-w-[600px] lg:w-[45%] aspect-square flex items-center justify-center z-10 pointer-events-none mt-[-5%] sm:mt-[-8%] lg:mt-0 xl:mt-0 lg:ml-auto">
+             {/* Faint Outer Ring */}
+             <div className="absolute w-[95%] lg:w-[100%] h-[95%] lg:h-[100%] rounded-full border border-green-800"></div>
+             {/* Inner Ring with glow */}
+             <div className="absolute w-[80%] lg:w-[85%] h-[80%] lg:h-[85%] rounded-full border border-green-600 shadow-[0_0_30px_rgba(34,197,94,0.1)]"></div>
 
-           {/* The glowing dot on the inner ring */}
-           <div className="absolute w-[80%] h-[80%] animate-[spin_10s_linear_infinite]">
-             <div className="absolute bottom-5 left-1/4 w-3.5 h-3.5 bg-pink-400 rounded-full shadow-[0_0_15px_5px_rgba(244,114,182,0.6)]"></div>
-           </div>
+             {/* The glowing dot on the inner ring */}
+             <div className="absolute w-[80%] lg:w-[85%] h-[80%] lg:h-[85%] animate-[spin_10s_linear_infinite]">
+               <div className="absolute bottom-[5%] left-[20%] w-3.5 h-3.5 bg-pink-400 rounded-full shadow-[0_0_15px_5px_rgba(244,114,182,0.6)]"></div>
+             </div>
 
-           {/* Center image - family */}
-           <div className="absolute w-[68%] h-[68%] rounded-full overflow-hidden z-0 shadow-2xl pointer-events-auto">
-             <img src="https://images.unsplash.com/photo-1576669801775-ff43c5bc079a?auto=format&fit=crop&w=800&q=80" alt="Happy African family" className="w-full h-full object-cover" />
-           </div>
+             {/* Center image - family */}
+             <div className="absolute w-[68%] lg:w-[72%] h-[68%] lg:h-[72%] rounded-full overflow-hidden z-0 shadow-2xl pointer-events-auto">
+               <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" alt="Healthy fresh food" className="w-full h-full object-cover" />
+             </div>
 
-           {/* Diagram Labels */}
-           <div className="absolute inset-0 flex items-center justify-center">
-              <span className="absolute top-[25%] left-[8%] md:left-[2%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Consultation</span>
-              <span className="absolute top-[25%] right-[8%] md:right-[2%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Pharmacy</span>
-              <span className="absolute top-[50%] left-[2%] md:left-[-5%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Diagnostics</span>
-              <span className="absolute top-[50%] right-[2%] md:right-[-5%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Wellness</span>
-              <span className="absolute bottom-[20%] left-[12%] md:left-[8%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Supplements</span>
-              <span className="absolute bottom-[20%] right-[12%] md:right-[8%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Expert Care</span>
-           </div>
+             {/* Diagram Labels */}
+             <div className="absolute inset-0 flex items-center justify-center">
+                <span className="absolute top-[25%] left-[8%] lg:left-[5%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Consultation</span>
+                <span className="absolute top-[25%] right-[8%] lg:right-[5%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Pharmacy</span>
+                <span className="absolute top-[50%] left-[2%] lg:left-[-5%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Diagnostics</span>
+                <span className="absolute top-[50%] right-[2%] lg:right-[-5%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Wellness</span>
+                <span className="absolute bottom-[20%] left-[12%] lg:left-[10%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Supplements</span>
+                <span className="absolute bottom-[20%] right-[12%] lg:right-[10%] text-[9px] md:text-[11px] font-bold tracking-widest uppercase text-green-100 bg-green-950/60 px-2 py-0.5 rounded backdrop-blur-sm">Expert Care</span>
+             </div>
+          </div>
+
         </div>
       </div>
 

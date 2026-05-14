@@ -90,7 +90,7 @@ export default function CategoryGrid() {
                   <img 
                     src={category.image} 
                     alt={category.name} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-[80%] h-[80%] object-contain group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
                 <span className="text-xs md:text-sm font-bold text-gray-700 text-center uppercase tracking-tight group-hover:text-green-700 transition-colors px-2 leading-tight">

@@ -1,46 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { ChevronRight, ChevronDown, ArrowLeft } from 'lucide-react';
-import { CATEGORIES, BRANDS, MOCK_PRODUCTS } from '../data';
+import { CATEGORIES, BRANDS } from '../data';
 import ProductCard from '../components/ProductCard';
-
-// Dynamically generate category details from MOCK_PRODUCTS
-const CATEGORY_DETAILS = CATEGORIES.map((cat) => {
-  const categoryProducts = MOCK_PRODUCTS.filter(p => p.categoryId === cat.id);
-  
-  // Group by subcategory
-  const subcategoryMap = categoryProducts.reduce((acc: Record<string, number>, product) => {
-    const subName = product.subcategory || 'Other';
-    if (!acc[subName]) {
-      acc[subName] = 0;
-    }
-    acc[subName]++;
-    return acc;
-  }, {});
-  
-  const subcategories = Object.entries(subcategoryMap).map(([name, count], index) => ({
-    id: `${cat.id}-sub-${index}`,
-    name,
-    count: count as number
-  }));
-  
-  // Fallback if empty
-  if (subcategories.length === 0) {
-    subcategories.push({ id: `${cat.id}-sub-none`, name: 'All Products', count: 0 });
-  }
-
-  return {
-    ...cat,
-    subcategories
-  };
-});
+import { useProducts } from '../ProductsContext';
 
 export default function ShopByCategory() {
   const location = useLocation();
+  const { products, loading } = useProducts();
   const [activeTab, setActiveTab] = useState<'categories' | 'brands'>('categories');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>(CATEGORIES[0].id);
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+
+  // Dynamically generate category details from products
+  const CATEGORY_DETAILS = useMemo(() => {
+    return CATEGORIES.map((cat) => {
+      const categoryProducts = products.filter(p => p.categoryId === cat.id);
+      
+      // Group by subcategory
+      const subcategoryMap = categoryProducts.reduce((acc: Record<string, number>, product) => {
+        const subName = product.subcategory || 'Other';
+        if (!acc[subName]) {
+          acc[subName] = 0;
+        }
+        acc[subName]++;
+        return acc;
+      }, {});
+      
+      const subcategories = Object.entries(subcategoryMap).map(([name, count], index) => ({
+        id: `${cat.id}-sub-${index}`,
+        name,
+        count: count as number
+      }));
+      
+      // Fallback if empty
+      if (subcategories.length === 0) {
+        subcategories.push({ id: `${cat.id}-sub-none`, name: 'All Products', count: 0 });
+      }
+
+      return {
+        ...cat,
+        subcategories
+      };
+    });
+  }, [products]);
 
   useEffect(() => {
     if (location.state?.activeTab) {
@@ -53,10 +57,14 @@ export default function ShopByCategory() {
     setSelectedSubcategory(null);
   }, [selectedCategoryId]);
 
+  if (loading) {
+     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
   const selectedCategoryData = CATEGORY_DETAILS.find(c => c.id === selectedCategoryId) || CATEGORY_DETAILS[0];
 
   const renderCategoryProducts = () => {
-    const filteredProducts = MOCK_PRODUCTS.filter(
+    const filteredProducts = products.filter(
       p => p.categoryId === selectedCategoryId && (!selectedSubcategory || p.subcategory === selectedSubcategory || (selectedSubcategory === 'All Products' && !p.subcategory))
     );
 
@@ -88,7 +96,7 @@ export default function ShopByCategory() {
   };
 
   const renderBrandProducts = () => {
-    const filteredProducts = MOCK_PRODUCTS.filter(p => p.brand === selectedBrand);
+    const filteredProducts = products.filter(p => p.brand === selectedBrand);
 
     return (
       <div className="flex-1 p-3 md:p-6 bg-white w-full overflow-y-auto" style={{ maxHeight: 'calc(100vh - 140px)' }}>
@@ -174,7 +182,7 @@ export default function ShopByCategory() {
                 >
                   <div className="flex items-center gap-2 md:gap-4">
                     <div className={`w-6 h-6 md:w-10 md:h-10 shrink-0 rounded-sm overflow-hidden bg-white flex items-center justify-center p-0.5 md:p-1 ${selectedCategoryId === category.id ? 'opacity-90' : ''}`}>
-                      <img src={category.image} alt={category.name} className="w-full h-full object-cover rounded-sm" />
+                      <img src={category.image} alt={category.name} className="w-[80%] h-[80%] object-contain rounded-sm" />
                     </div>
                     <span className="font-semibold text-[9px] sm:text-[11px] md:text-sm leading-tight pr-1">{category.name}</span>
                   </div>

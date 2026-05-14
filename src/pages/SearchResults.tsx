@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import { MOCK_PRODUCTS, Product } from '../data';
+import { Product } from '../data';
 import { Search as SearchIcon, ArrowLeft, Sparkles, Loader2 } from 'lucide-react';
+import { useProducts } from '../ProductsContext';
 
 function useQuery() {
   const { search } = useLocation();
@@ -13,6 +14,7 @@ export default function SearchResults() {
   const query = useQuery();
   const searchQuery = query.get('q') || '';
   const navigate = useNavigate();
+  const { products, loading } = useProducts();
 
   const [aiLoading, setAiLoading] = useState(false);
   const [aiResults, setAiResults] = useState<Product[]>([]);
@@ -21,17 +23,18 @@ export default function SearchResults() {
   // We still do standard literal search instantly
   const standardResults = useMemo(() => {
     if (!searchQuery) return [];
+    if (loading) return [];
     const lowercaseQuery = searchQuery.toLowerCase();
-    return MOCK_PRODUCTS.filter(product => 
+    return products.filter(product => 
       product.name.toLowerCase().includes(lowercaseQuery) ||
       product.brand.toLowerCase().includes(lowercaseQuery) ||
       (product.subcategory && product.subcategory.toLowerCase().includes(lowercaseQuery))
     );
-  }, [searchQuery]);
+  }, [searchQuery, products, loading]);
 
   useEffect(() => {
     async function performAiSearch() {
-      if (!searchQuery) return;
+      if (!searchQuery || loading) return;
       setAiLoading(true);
       setAiDescription(null);
       setAiResults([]);
@@ -42,7 +45,7 @@ export default function SearchResults() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             query: searchQuery,
-            products: MOCK_PRODUCTS.map(p => ({
+            products: products.map(p => ({
               id: p.id,
               name: p.name,
               categoryId: p.categoryId,
@@ -55,7 +58,7 @@ export default function SearchResults() {
           const data = await response.json();
           if (data.matchingProductIds && data.matchingProductIds.length > 0) {
             const mapped = data.matchingProductIds
-              .map((id: string) => MOCK_PRODUCTS.find(p => p.id === id))
+              .map((id: string) => products.find(p => p.id === id))
               .filter(Boolean) as Product[];
             
             // Filter out items that are already in the exact match to avoid duplicates
@@ -74,7 +77,7 @@ export default function SearchResults() {
     // Debounce the call to avoid hitting the API too much on every keystroke
     const handler = setTimeout(performAiSearch, 800);
     return () => clearTimeout(handler);
-  }, [searchQuery, standardResults]);
+  }, [searchQuery, standardResults, products, loading]);
 
   const searchResults = useMemo(() => {
      // Combine standard results + internal AI suggested results
@@ -82,15 +85,16 @@ export default function SearchResults() {
   }, [standardResults, aiResults]);
 
   const similarProducts = useMemo(() => {
+    if (loading) return [];
     if (!searchQuery || searchResults.length >= 8) {
        // if we have lots of results, maybe just show some random
-       return MOCK_PRODUCTS.filter(p => !searchResults.some(r => r.id === p.id)).slice(0, 4);
+       return products.filter(p => !searchResults.some(r => r.id === p.id)).slice(0, 4);
     }
     
     // Otherwise return items from similar categories
     const resultCategories = Array.from(new Set(searchResults.map(p => p.categoryId)));
     if (resultCategories.length > 0) {
-       const similar = MOCK_PRODUCTS.filter(p => 
+       const similar = products.filter(p => 
          resultCategories.includes(p.categoryId) && 
          !searchResults.some(r => r.id === p.id)
        );
@@ -98,8 +102,8 @@ export default function SearchResults() {
     }
     
     // Fallback to random popular products
-    return MOCK_PRODUCTS.filter(p => !searchResults.some(r => r.id === p.id)).sort((a,b) => b.rating - a.rating).slice(0, 4);
-  }, [searchResults, searchQuery]);
+    return products.filter(p => !searchResults.some(r => r.id === p.id)).sort((a,b) => b.rating - a.rating).slice(0, 4);
+  }, [searchResults, searchQuery, products, loading]);
 
   return (
     <div className="bg-gray-50 flex-1 py-8">

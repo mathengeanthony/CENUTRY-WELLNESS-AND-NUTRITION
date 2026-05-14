@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Star, ShoppingCart, Info, Activity, ShieldCheck, Heart, Award, ChevronDown, ChevronUp, PhoneCall, Clock } from 'lucide-react';
-import { MOCK_PRODUCTS } from '../data';
+import { ArrowLeft, Star, ShoppingCart, Info, Activity, ShieldCheck, Heart, Award, ChevronDown, ChevronUp, PhoneCall, Clock, Tag, Package, CheckCircle } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import { useProducts } from '../ProductsContext';
+import ReactMarkdown from 'react-markdown';
+import { useCart } from '../CartContext';
 
 const CUSTOMER_REVIEWS = [
   { name: "Wanjiku N.", rating: 5, date: "2 weeks ago", text: "Amazing results! Started seeing a difference after just one week. The pharmacist was also very helpful with dosage instructions." },
@@ -18,11 +20,15 @@ const CUSTOMER_REVIEWS = [
 export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { products, loading } = useProducts();
+  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [openAccordion, setOpenAccordion] = useState<string>('');
+  const [added, setAdded] = useState(false);
   
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -51,7 +57,11 @@ export default function ProductDetails() {
     setOpenAccordion(prev => prev === id ? '' : id);
   };
 
-  const product = MOCK_PRODUCTS.find(p => p.id === id);
+  if (loading) {
+    return <div className="bg-gray-50 flex-1 py-12 flex items-center justify-center">Loading product details...</div>;
+  }
+
+  const product = products.find(p => p.id === id);
 
   if (!product) {
     return (
@@ -64,7 +74,7 @@ export default function ProductDetails() {
     );
   }
 
-  const similarProducts = MOCK_PRODUCTS.filter(p => p.categoryId === product.categoryId && p.id !== product.id).slice(0, 4);
+  const similarProducts = products.filter(p => p.categoryId === product.categoryId && p.id !== product.id).slice(0, 4);
 
   return (
     <div className="bg-white flex-1">
@@ -104,21 +114,52 @@ export default function ProductDetails() {
           {/* Product Image & Gallery */}
           <div className="w-full md:w-1/2 flex flex-col gap-3">
             <div className="w-full flex items-center justify-center p-6 bg-gray-50 border border-gray-100 rounded-2xl relative">
-               <img src={product.image} alt={product.name} className="w-full max-w-[400px] h-auto object-contain mix-blend-multiply" />
+               <img 
+                 src={(product.images?.length ? product.images : [product.image])[activeImageIndex]} 
+                 alt={product.name} 
+                 referrerPolicy="no-referrer"
+                 onError={(e) => {
+                   const fallback = product.image || "https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80";
+                   if (e.currentTarget.src !== fallback) {
+                     e.currentTarget.src = fallback;
+                   }
+                 }}
+                 className="w-full max-w-[400px] h-auto object-contain mix-blend-multiply" 
+               />
                {product.discountText && (
                   <div className="absolute top-4 right-4 bg-pink-500 text-white text-xs font-black uppercase px-3 py-1 rounded-full shadow-sm">
                     {product.discountText}
                   </div>
                 )}
+                <div className={`absolute top-4 left-4 text-xs font-black uppercase px-3 py-1 rounded-full shadow-sm text-white ${product.availability === 'Out of Stock' ? 'bg-red-500' : 'bg-green-500'}`}>
+                  {product.availability || "In Stock"}
+                </div>
             </div>
             {/* Image Grid Selector */}
-            <div className="flex items-center justify-center gap-2">
-              {[1, 2, 3].map((i) => (
-                <button key={i} className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl border-2 flex items-center justify-center bg-gray-50 ${i === 1 ? 'border-pink-500' : 'border-gray-200 hover:border-pink-300'} transition-colors overflow-hidden`}>
-                  <img src={product.image} alt={`Thumbnail ${i}`} className="w-full h-full object-contain p-2 mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity" />
-                </button>
-              ))}
-            </div>
+            {((product.images?.length ? product.images : [product.image]).length > 1) && (
+              <div className="flex items-center justify-center gap-2">
+                {(product.images?.length ? product.images : [product.image]).map((img: string, i: number) => (
+                  <button 
+                    key={i} 
+                    onClick={() => setActiveImageIndex(i)}
+                    className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl border-2 flex items-center justify-center bg-gray-50 ${i === activeImageIndex ? 'border-pink-500' : 'border-gray-200 hover:border-pink-300'} transition-colors overflow-hidden`}
+                  >
+                    <img 
+                      src={img} 
+                      alt={`Thumbnail ${i + 1}`} 
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const fallback = "https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=400&q=80";
+                        if (e.currentTarget.src !== fallback) {
+                          e.currentTarget.src = fallback;
+                        }
+                      }}
+                      className="w-full h-full object-contain p-2 mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity" 
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Product Info */}
@@ -144,7 +185,7 @@ export default function ProductDetails() {
                 <span className="text-sm text-gray-400 font-medium ml-1">({product.reviews} reviews)</span>
               </div>
               <span className="text-gray-300">|</span>
-              <span className="text-sm text-gray-500 font-medium whitespace-wrap">Category: <span className="text-gray-800">{product.subcategory || "Health"}</span></span>
+              <span className="text-sm text-gray-500 font-medium whitespace-wrap">Category: <span className="text-gray-800">{product.subcategory || product.category || "Health"}</span></span>
             </div>
 
             <div className="flex items-center gap-3 mb-3">
@@ -162,13 +203,22 @@ export default function ProductDetails() {
 
             <div className="mb-4 p-4 bg-gray-50 rounded-xl border border-gray-100 flex flex-col">
               <div className="flex items-baseline space-x-3 mb-1">
-                <span className="text-2xl md:text-3xl font-black text-pink-600">KSh {product.price.toLocaleString()}</span>
-                {product.oldPrice && (
-                  <span className="text-base text-gray-400 font-semibold line-through">KSh {product.oldPrice.toLocaleString()}</span>
+                {(product.percentageDiscount || product.discountText) && (
+                  <span className="bg-red-50 text-red-600 font-black px-2 py-0.5 text-sm rounded-md tracking-tight mr-1">
+                     {product.percentageDiscount ? `-${product.percentageDiscount}%` : product.discountText}
+                  </span>
+                )}
+                <span className="text-2xl md:text-3xl font-black text-pink-600">
+                   KSh {((product.currentPrice ?? product.price) || 0).toLocaleString()}
+                </span>
+                {(product.offerPrice || product.oldPrice) && (
+                  <span className="text-base text-gray-400 font-semibold line-through">
+                    KSh {(product.offerPrice || product.oldPrice)?.toLocaleString()}
+                  </span>
                 )}
               </div>
               <div className="text-xs font-bold text-green-700 flex items-center">
-                 <ShieldCheck className="w-3.5 h-3.5 mr-1" /> Earn {product.points || Math.floor(product.price / 100)} Century Points
+                 <ShieldCheck className="w-3.5 h-3.5 mr-1" /> Earn {product.points || Math.floor(((product.currentPrice ?? product.price) || 0) / 100)} Century Points
               </div>
             </div>
 
@@ -180,8 +230,21 @@ export default function ProductDetails() {
                   <span className="flex-1 font-bold text-center border-x-2 border-gray-200">{quantity}</span>
                   <button onClick={() => setQuantity(quantity + 1)} className="flex-1 h-full flex items-center justify-center text-gray-500 hover:text-pink-500 hover:bg-pink-50 transition rounded-r-full font-bold text-lg">+</button>
                 </div>
-                <button className="flex-1 h-10 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-full transition shadow-md shadow-pink-500/20 flex items-center justify-center uppercase tracking-wide text-xs">
-                  <ShoppingCart className="w-4 h-4 mr-2" /> Add to Cart
+                <button 
+                  onClick={() => {
+                    if (product) {
+                      addToCart(product, quantity);
+                      setAdded(true);
+                      setTimeout(() => setAdded(false), 2000);
+                    }
+                  }}
+                  className={`flex-1 h-10 ${added ? 'bg-green-500 hover:bg-green-600' : 'bg-pink-500 hover:bg-pink-600'} text-white font-bold rounded-full transition shadow-md ${added ? 'shadow-green-500/20' : 'shadow-pink-500/20'} flex items-center justify-center uppercase tracking-wide text-xs`}
+                >
+                  {added ? (
+                    <><CheckCircle className="w-4 h-4 mr-2" /> Added to Cart</>
+                  ) : (
+                    <><ShoppingCart className="w-4 h-4 mr-2" /> Add to Cart</>
+                  )}
                 </button>
               </div>
             </div>
@@ -192,9 +255,9 @@ export default function ProductDetails() {
                  <Info className="w-5 h-5 text-gray-400 mr-3 mt-0.5" />
                  <div>
                    <span className="block font-bold text-gray-900 text-sm">Description</span>
-                   <p className="text-sm text-gray-600 mt-1 leading-relaxed">
-                     A premier nutritional supplement from {product.brand}. Designed to boost your well-being, this product ensures high-quality results when combined with a balanced diet. Supports overall vitality and health.
-                   </p>
+                   <div className="prose prose-sm text-sm text-gray-600 mt-1 leading-relaxed whitespace-pre-line prose-p:mb-2 prose-strong:text-gray-900">
+                     <ReactMarkdown>{product.description || `A premier nutritional supplement from ${product.brand}. Designed to boost your well-being, this product ensures high-quality results when combined with a balanced diet. Supports overall vitality and health.`}</ReactMarkdown>
+                   </div>
                  </div>
                </div>
             </div>
@@ -219,52 +282,29 @@ export default function ProductDetails() {
                  className="w-full px-5 sm:px-6 py-3.5 flex items-center justify-between hover:bg-gray-50 transition-colors focus:outline-none focus-visible:bg-gray-50"
                >
                  <span className="flex items-center font-bold text-gray-900 text-sm sm:text-base">
-                    <Info className="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 mr-3" /> Clinical Overview
+                    <Info className="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 mr-3" /> Clinical Dossier
                  </span>
                  {openAccordion === 'overview' ? <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" /> : <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />}
                </button>
                {openAccordion === 'overview' && (
-                 <div className="px-5 sm:px-6 pb-4 pt-1 animate-in fade-in duration-300">
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4">
-                        <div>
-                          <h5 className="font-bold text-gray-900 mb-3 uppercase tracking-wider text-xs text-pink-500">Key Benefits</h5>
-                          <ul className="space-y-3 text-sm text-gray-600">
-                            <li className="flex items-start">
-                              <div className="w-5 h-5 rounded bg-green-100 text-green-600 flex items-center justify-center mr-3 shrink-0 mt-0.5">✓</div>
-                              <span className="leading-relaxed">Manufactured by <strong className="text-gray-900">{product.brand}</strong>, ensuring trusted global quality standards.</span>
-                            </li>
-                            <li className="flex items-start">
-                              <div className="w-5 h-5 rounded bg-green-100 text-green-600 flex items-center justify-center mr-3 shrink-0 mt-0.5">✓</div>
-                              <span className="leading-relaxed">Formulated for maximum bioavailability and rapid absorption.</span>
-                            </li>
-                            <li className="flex items-start">
-                              <div className="w-5 h-5 rounded bg-green-100 text-green-600 flex items-center justify-center mr-3 shrink-0 mt-0.5">✓</div>
-                              <span className="leading-relaxed">Ideal for supplementing nutritional gaps in a daily diet routines.</span>
-                            </li>
-                          </ul>
-                        </div>
-                        
-                        <div className="bg-blue-50 rounded-xl p-5 border border-blue-100 h-fit">
-                          <h5 className="font-bold text-blue-900 mb-2 flex items-center">
-                             <Info className="w-4 h-4 mr-2 text-blue-500 shrink-0" /> Expert Note
-                          </h5>
-                          <p className="text-sm text-blue-800 leading-relaxed">
-                            This formula is regularly recommended by our clinical nutritionists for individuals focusing on intensive wellness regimens. Best results observed with consistent daily use over 4-6 weeks.
-                          </p>
-                        </div>
-                     </div>
-
-                     <div className="prose prose-sm text-gray-600 max-w-none">
-                        <p>
-                          Century Wellness prioritizes products that meet stringent clinical efficacy standards. 
-                          This product from {product.brand} has been added to our catalog because it demonstrates 
-                          exceptional purity profiles and reliable results. 
-                        </p>
-                        <p className="mt-4">
-                          Our in-house quality assurance team verifies that the manufacturing processes align with 
-                          modern Good Manufacturing Practices (GMP). While individual results may vary based on 
-                          metabolic factors, the baseline nutritional support provides a strong foundation for health.
-                        </p>
+                 <div className="px-5 sm:px-6 pb-4 pt-4 animate-in fade-in duration-300">
+                     <div className="prose prose-sm text-gray-600 max-w-none prose-ul:pl-0 prose-ul:list-inside prose-ul:space-y-2 prose-li:marker:text-green-500 prose-headings:font-bold prose-headings:text-gray-900 whitespace-pre-line">
+                        {product.clinicalDossier || product.dossier ? (
+                          <ReactMarkdown>{product.clinicalDossier || product.dossier || ""}</ReactMarkdown>
+                        ) : (
+                          <>
+                            <p>
+                              Century Wellness prioritizes products that meet stringent clinical efficacy standards. 
+                              This product from {product.brand} has been added to our catalog because it demonstrates 
+                              exceptional purity profiles and reliable results. 
+                            </p>
+                            <p className="mt-4">
+                              Our in-house quality assurance team verifies that the manufacturing processes align with 
+                              modern Good Manufacturing Practices (GMP). While individual results may vary based on 
+                              metabolic factors, the baseline nutritional support provides a strong foundation for health.
+                            </p>
+                          </>
+                        )}
                      </div>
                  </div>
                )}
@@ -284,56 +324,9 @@ export default function ProductDetails() {
                {openAccordion === 'ingredients' && (
                  <div className="px-5 sm:px-6 pb-4 pt-1 animate-in fade-in duration-300">
                      <p className="text-sm text-gray-600 mb-4">A breakdown of the primary active compounds in this formulation per standard serving.</p>
-                     
-                     <div className="overflow-x-auto rounded-xl border border-gray-200 mb-4 w-full">
-                       <table className="w-full divide-y divide-gray-200 min-w-[400px]">
-                         <thead className="bg-gray-50 border-b border-gray-200">
-                           <tr>
-                             <th scope="col" className="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Compound</th>
-                             <th scope="col" className="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Amount per Serving</th>
-                             <th scope="col" className="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">% Daily Value</th>
-                           </tr>
-                         </thead>
-                         <tbody className="bg-white divide-y divide-gray-200">
-                           <tr>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Primary Active Complex</td>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">1000 mg</td>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">**</td>
-                           </tr>
-                           <tr className="bg-gray-50/50">
-                             <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Bio-enhancers</td>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">50 mg</td>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">**</td>
-                           </tr>
-                           <tr>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Essential Nutrients</td>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">500 mcg</td>
-                             <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">100%</td>
-                           </tr>
-                         </tbody>
-                       </table>
+                     <div className="prose prose-sm text-gray-600 max-w-none prose-ul:pl-0 prose-ul:list-inside prose-ul:space-y-2 prose-li:marker:text-pink-500 whitespace-pre-line">
+                        <ReactMarkdown>{product.activeIngredients || "No ingredients listed."}</ReactMarkdown>
                      </div>
-                     <p className="text-xs text-gray-400 italic">** Daily Value not established. Other ingredients: Microcrystalline Cellulose, Vegetable Cellulose (capsule), Silica, Magnesium Stearate.</p>
-                 </div>
-               )}
-            </div>
-
-            {/* Suggested Use Accordion */}
-            <div className="border-b border-gray-200">
-               <button 
-                 onClick={() => toggleAccordion('suggested_use')}
-                 className="w-full px-5 sm:px-6 py-3.5 flex items-center justify-between hover:bg-gray-50 transition-colors focus:outline-none focus-visible:bg-gray-50"
-               >
-                 <span className="flex items-center font-bold text-gray-900 text-sm sm:text-base">
-                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-pink-500 mr-3" /> Suggested Use
-                 </span>
-                 {openAccordion === 'suggested_use' ? <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" /> : <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />}
-               </button>
-               {openAccordion === 'suggested_use' && (
-                 <div className="px-5 sm:px-6 pb-4 pt-1 animate-in fade-in duration-300">
-                     <p className="text-sm text-gray-600 leading-relaxed">
-                       Consult with your healthcare provider for optimal dosage instructions. Generally taken daily with a meal for better absorption.
-                     </p>
                  </div>
                )}
             </div>
@@ -351,26 +344,8 @@ export default function ProductDetails() {
                </button>
                {openAccordion === 'usage' && (
                  <div className="px-5 sm:px-6 pb-4 pt-1 animate-in fade-in duration-300">
-                     <div className="space-y-4">
-                       <div>
-                         <h5 className="font-bold text-gray-900 mb-2">Recommended Protocol</h5>
-                         <p className="text-sm text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-100 relative before:w-1 before:h-full before:absolute before:left-0 before:top-0 before:bg-pink-500 before:rounded-l-lg overflow-hidden">
-                           Take one (1) serving daily with food, or as directed by a healthcare practitioner. For best sustained results, consistency is key. Avoid taking on a completely empty stomach.
-                         </p>
-                       </div>
-                       
-                       <div>
-                         <h5 className="font-bold text-red-600 mb-2 flex items-center">
-                           <ShieldCheck className="w-4 h-4 mr-2" /> Important Warnings
-                         </h5>
-                         <ul className="space-y-2 text-sm text-gray-600 list-disc list-inside">
-                           <li>Food supplements must not be used as a substitute for a varied and balanced diet and a healthy lifestyle.</li>
-                           <li>If you are pregnant, breastfeeding, taking any medications or under medical supervision, please consult a doctor before use.</li>
-                           <li>Discontinue use and consult a doctor if adverse reactions occur.</li>
-                           <li>Not intended for use by persons under the age of 18.</li>
-                           <li>Keep out of reach of children. Store in a cool, dry place. Do not use if safety seal is broken or missing.</li>
-                         </ul>
-                       </div>
+                     <div className="prose prose-sm text-gray-600 max-w-none prose-ul:pl-0 prose-ul:list-inside prose-ul:space-y-2 prose-li:marker:text-red-500 whitespace-pre-line">
+                        <ReactMarkdown>{product.usageAndWarnings || "Take one (1) serving daily with food. Consult a doctor before use."}</ReactMarkdown>
                      </div>
                  </div>
                )}
@@ -389,9 +364,9 @@ export default function ProductDetails() {
                </button>
                {openAccordion === 'certifications' && (
                  <div className="px-5 sm:px-6 pb-4 pt-1 animate-in fade-in duration-300">
-                     <p className="text-sm text-gray-600 mb-4">This product aims to meet the rigorous clinical standards upheld by Century Wellness.</p>
+                     <p className="text-sm text-gray-600 mb-4">{product.qualityAssurance || "This product aims to meet the rigorous clinical standards upheld by Century Wellness."}</p>
                      
-                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 text-center">
+                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 text-center">
                        <div className="flex flex-col items-center p-3 bg-gray-50 rounded-xl border border-gray-100">
                          <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-2">
                            <ShieldCheck className="w-5 h-5" />

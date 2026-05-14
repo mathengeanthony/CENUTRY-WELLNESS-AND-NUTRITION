@@ -85,9 +85,12 @@ export default function BrandsSection() {
             style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
           >
             {displayBrands.map((brand, i) => (
-              <div key={i} className="bg-white border hover:border-green-500 rounded-lg p-6 flex items-center justify-center shrink-0 snap-start w-32 md:w-48 lg:w-56 aspect-[3/2] cursor-pointer shadow-sm hover:shadow-md transition-all">
-                 <div className="text-center">
-                   <span className="block font-black text-lg md:text-xl text-gray-300 group-hover:text-green-700 transition uppercase tracking-tighter">
+              <div key={i} className="bg-white border hover:border-green-500 rounded-lg p-6 flex flex-col items-center justify-center shrink-0 snap-start w-32 md:w-48 lg:w-56 aspect-[3/2] cursor-pointer shadow-sm hover:shadow-md transition-all">
+                 <div className="h-16 w-full mb-3 flex items-center justify-center">
+                   <img src={brand.logo} alt={brand.name} className="max-h-full max-w-full object-contain" />
+                 </div>
+                 <div className="text-center mt-auto">
+                   <span className="block font-black text-xs md:text-sm text-gray-400 group-hover:text-green-700 transition uppercase tracking-tighter">
                      {brand.name}
                    </span>
                  </div>

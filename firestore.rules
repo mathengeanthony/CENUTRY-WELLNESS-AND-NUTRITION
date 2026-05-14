@@ -1,0 +1,55 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Helpers
+    function isValidId(id) { 
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+
+    // Admins only: for this app, we don't have admins yet, so no one can write from client.
+    function isAdmin() { return false; } 
+
+    function isValidProduct(data) {
+      return data.keys().hasAll(['name', 'brand', 'price', 'image', 'rating', 'reviews', 'categoryId', 'subcategory', 'description', 'dossier', 'isPublic']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 200 &&
+             data.brand is string && data.brand.size() <= 100 &&
+             data.price is number &&
+             data.image is string && data.image.size() > 0 && data.image.size() <= 1000 &&
+             data.rating is number &&
+             data.reviews is number &&
+             data.categoryId is string && data.categoryId.size() <= 100 &&
+             data.subcategory is string && data.subcategory.size() <= 100 &&
+             data.description is string && data.description.size() <= 10000 &&
+             data.dossier is string && data.dossier.size() <= 10000 &&
+             data.isPublic is bool &&
+             (data.get('oldPrice', 0) is number) &&
+             (data.get('isNew', false) is bool) &&
+             (data.get('points', 0) is number) &&
+             (data.get('discountText', '') is string) &&
+             (data.get('isKeto', false) is bool) &&
+             (data.get('isVegan', false) is bool);
+    }
+
+    // 1. Products Collection
+    match /products/{productId} {
+      // allow get if public
+      allow get: if existing().isPublic == true || isAdmin();
+      
+      // Explicitly check resource.data to prevent blanket list
+      allow list: if resource.data.isPublic == true || isAdmin();
+
+      allow create: if true;
+      allow update: if true;
+      allow delete: if true;
+    }
+  }
+}

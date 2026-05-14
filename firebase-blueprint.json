@@ -1,0 +1,35 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Details about a health product",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "brand": { "type": "string" },
+        "price": { "type": "number" },
+        "oldPrice": { "type": "number" },
+        "image": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviews": { "type": "number" },
+        "isNew": { "type": "boolean" },
+        "points": { "type": "number" },
+        "discountText": { "type": "string" },
+        "isKeto": { "type": "boolean" },
+        "isVegan": { "type": "boolean" },
+        "categoryId": { "type": "string" },
+        "subcategory": { "type": "string" },
+        "description": { "type": "string" },
+        "dossier": { "type": "string" },
+        "isPublic": { "type": "boolean" }
+      },
+      "required": ["name", "brand", "price", "image", "rating", "reviews", "categoryId", "subcategory", "description", "dossier", "isPublic"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Public catalog of products"
+    }
+  }
+}

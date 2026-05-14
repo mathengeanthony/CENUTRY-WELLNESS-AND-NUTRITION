@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Clock, ShoppingCart } from 'lucide-react';
-import { MOCK_PRODUCTS } from '../data';
+import { useProducts } from '../ProductsContext';
 import ProductCard from './ProductCard';
 
 export default function FlashSale() {
+  const { products, loading } = useProducts();
   const [timeLeft, setTimeLeft] = useState(4 * 3600 + 45 * 60 + 12); // Default to 4h 45m 12s
 
   useEffect(() => {
@@ -19,8 +20,12 @@ export default function FlashSale() {
 
   const pad = (num: number) => num.toString().padStart(2, '0');
 
+  if (loading) {
+     return <section className="pt-2 pb-8 md:py-10 bg-pink-50 flex items-center justify-center min-h-[400px]">Loading deals...</section>;
+  }
+
   // Taking first 5 products for flash sale
-  const flashProducts = MOCK_PRODUCTS.slice(4, 9);
+  const flashProducts = products.slice(4, 9);
   
   return (
     <section className="pt-2 pb-8 md:py-10 bg-pink-50">

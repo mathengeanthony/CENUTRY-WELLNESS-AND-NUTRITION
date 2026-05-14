@@ -6,11 +6,16 @@ import ServicesSection from '../components/ServicesSection';
 import FlashSale from '../components/FlashSale';
 import BrandsSection from '../components/BrandsSection';
 import ArticlesSection from '../components/ArticlesSection';
-import { MOCK_PRODUCTS } from '../data';
+import { useProducts } from '../ProductsContext';
 
 export default function Home() {
-  const trendingProducts = MOCK_PRODUCTS.slice(0, 5);
-  const bestSellers = MOCK_PRODUCTS.slice(3, 8); 
+  const { products, loading } = useProducts();
+  const trendingProducts = products.slice(0, 5);
+  const bestSellers = products.slice(3, 8); 
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading products...</div>;
+  }
 
   return (
     <main>

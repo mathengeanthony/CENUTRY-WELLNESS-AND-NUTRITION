@@ -10,7 +10,7 @@ const BANNERS = [
     title: "Summer",
     highlight: "Shred",
     desc: "Up to 60% off on all fat burners and Keto essentials + Free Smart Shaker.",
-    btnText: "Shop Now"
+    btnText: "Shop Sale"
   },
   {
     id: 2,
@@ -18,8 +18,8 @@ const BANNERS = [
     badge: "Proteins",
     title: "Premium",
     highlight: "Whey",
-    desc: "Build muscle with our top tier whey protein isolates.",
-    btnText: "Discover More"
+    desc: "Build muscle with our top tier whey protein isolates. Multiple flavors available.",
+    btnText: "Discover Whey"
   },
   {
     id: 3,
@@ -27,8 +27,89 @@ const BANNERS = [
     badge: "Vitamins",
     title: "Daily",
     highlight: "Wellness",
-    desc: "Boost your immunity with our extensive range of vitamins and minerals.",
-    btnText: "Explore Now"
+    desc: "Boost your immunity with our extensive range of vitamins and minerals. Support your body naturally.",
+    btnText: "Explore Vitamins"
+  },
+  {
+    id: 4,
+    image: "https://images.unsplash.com/photo-1584362917165-526a968579e8?auto=format&fit=crop&w=1920&q=80",
+    badge: "Joint Care",
+    title: "Active",
+    highlight: "Joints",
+    desc: "Glucosamine & Chondroitin complexes to keep you moving comfortably every day.",
+    btnText: "Shop Joint Support"
+  },
+  {
+    id: 5,
+    image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1920&q=80",
+    badge: "Performance",
+    title: "Explosive",
+    highlight: "Energy",
+    desc: "Pre-workouts formulated to push your limits and maximize every session.",
+    btnText: "Get Energetic"
+  },
+  {
+    id: 6,
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1920&q=80",
+    badge: "Dietary",
+    title: "Keto",
+    highlight: "Essentials",
+    desc: "Stay in ketosis effortlessly with our range of low-carb, high-fat supplements.",
+    btnText: "Shop Keto"
+  },
+  {
+    id: 7,
+    image: "https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=1920&q=80",
+    badge: "Gut Health",
+    title: "Happy",
+    highlight: "Biome",
+    desc: "Probiotics and digestive enzymes to support your digestive health optimally.",
+    btnText: "Explore Probiotics"
+  },
+  {
+    id: 8,
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80",
+    badge: "Recovery",
+    title: "Nighttime",
+    highlight: "Repair",
+    desc: "ZMA and sleep support formulas for enhanced muscle recovery while you rest.",
+    btnText: "Shop Recovery"
+  },
+  {
+    id: 9,
+    image: "https://images.unsplash.com/photo-1564149504298-00c351fd7f16?auto=format&fit=crop&w=1920&q=80",
+    badge: "Brain Health",
+    title: "Mental",
+    highlight: "Focus",
+    desc: "Nootropics and Omega-3s clinically proven to enhance cognitive clarity and focus.",
+    btnText: "Boost Focus"
+  },
+  {
+    id: 10,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1920&q=80",
+    badge: "Mens Health",
+    title: "Vitality",
+    highlight: "Boost",
+    desc: "Testosterone support and men's multi-vitamins for everyday peak performance.",
+    btnText: "Shop Men's"
+  },
+  {
+    id: 11,
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1920&q=80",
+    badge: "Womens Health",
+    title: "Radiant",
+    highlight: "Glow",
+    desc: "Collagen, Biotin & specialized multivitamins to support women's unique health needs.",
+    btnText: "Shop Women's"
+  },
+  {
+    id: 12,
+    image: "https://images.unsplash.com/photo-1551847677-dc82d762e1fd?auto=format&fit=crop&w=1920&q=80",
+    badge: "Pantry",
+    title: "Healthy",
+    highlight: "Snacks",
+    desc: "Guilt-free protein bars and healthy snacks to satisfy your cravings any time.",
+    btnText: "View Snacks"
   }
 ];
 
