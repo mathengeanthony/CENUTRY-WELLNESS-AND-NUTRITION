@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
+    "prebuild": "npx tsx copy-images.ts && npx tsx copy-product-images.ts",
     "build": "vite build",
     "start": "tsx server.ts",
     "preview": "vite preview",
